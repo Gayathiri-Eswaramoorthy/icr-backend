@@ -4,7 +4,10 @@ WORKDIR /app
 
 COPY . .
 
+RUN apt-get update && apt-get install -y dos2unix
+RUN dos2unix mvnw
 RUN chmod +x mvnw
+
 RUN ./mvnw clean install -DskipTests
 
-CMD ["java", "-jar", "target/*.jar"]
+CMD ["sh", "-c", "java -jar target/*.jar"]
