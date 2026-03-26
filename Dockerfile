@@ -1,13 +1,13 @@
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:17-jdk-alpine
 
 WORKDIR /app
 
 COPY . .
 
-RUN apt-get update && apt-get install -y dos2unix
-RUN dos2unix mvnw
 RUN chmod +x mvnw
 
-RUN ./mvnw clean install -DskipTests
+RUN ./mvnw clean package -DskipTests
 
-CMD ["sh", "-c", "java -jar target/*.jar"]
+EXPOSE 8080
+
+CMD ["java", "-jar", "target/*.jar"]
