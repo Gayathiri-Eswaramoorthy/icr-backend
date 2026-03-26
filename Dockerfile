@@ -6,8 +6,10 @@ COPY . .
 
 RUN chmod +x mvnw
 
-RUN ./mvnw clean package -DskipTests
+RUN ./mvnw clean install -DskipTests
+
+RUN ls target
 
 EXPOSE 8080
 
-CMD ["java", "-jar", "target/*.jar"]
+CMD ["sh", "-c", "java -jar target/*.jar"]
